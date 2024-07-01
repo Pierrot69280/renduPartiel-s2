@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use AllowDynamicProperties;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[AllowDynamicProperties]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
 {
@@ -19,6 +21,9 @@ class Article
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
+    private ?Category $category = null;
 
     public function getId(): ?int
     {
@@ -45,6 +50,18 @@ class Article
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

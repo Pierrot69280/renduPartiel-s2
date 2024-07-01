@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme form "bootstrap_5_layout.html.twig" %}
+
+{% block body %}
+    <div class="container position">
+        <h3 class="mb-4">Editer une catégorie</h3>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.name, 'Contenu de la catégorie') }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Editer</button>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

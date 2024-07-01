@@ -14,6 +14,11 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ path('app_create') }}">Créer</a>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ path('app_category') }}">Catégorie</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <a href="{{ path('app_logout') }}" class="btn btn-danger"><i class="bi-power" style="font-size: 1.2rem; font-weight:bold; color: white;"></i></a>
             </div>
