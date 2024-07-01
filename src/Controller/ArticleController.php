@@ -32,6 +32,8 @@ class ArticleController extends AbstractController
 
 
     #[Route('/create', name: 'app_create')]
+//    #[Route('/admin/create', name: 'app_create')] test
+
     public function create(Request $request, EntityManagerInterface $manager):Response
     {
 
@@ -41,8 +43,6 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $twoote->setCreatedAt(new \DateTime());
-//            $twoote->setAuthor($this->getUser());
             $manager->persist($article);
             $manager->flush();
 
@@ -55,6 +55,8 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/delete/{id}', name:'app_delete')]
+//    #[Route('/admin/delete/{id}', name: 'app_delete')] test
+
     public function delete(Article $article, EntityManagerInterface $manager):Response
     {
 
