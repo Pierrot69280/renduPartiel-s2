@@ -3,24 +3,31 @@
 {% block title %}Les Articles{% endblock %}
 
 {% block body %}
-    <div class="container position">
-        <div class="row justify-content-center">
-            {% for article in articles|reverse %}
-                <div class="col-3 mb-3">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ article.name }}</h5>
-                            <p class="card-text">{{ article.description }}</p>
-                            <div>
-                                <a class="btn btn-danger" href="{{ path('app_delete', {id:article.id} ) }}"><i class="bi bi-trash"></i></a>
-                                <a class="btn btn-warning" href="{{ path('app_edit', {id:article.id} ) }}"><i class="bi bi-pencil-square"></i></a>
-                                <a href="{{ path('app_show', {'id': article.id}) }}" class="btn btn-primary">Voir</a>
-
+    {% if app.user %}
+        <div class="container position">
+            <div class="row justify-content-center">
+                {% for article in articles|reverse %}
+                    <div class="col-3 mb-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.name }}</h5>
+                                <p class="card-text">{{ article.description }}</p>
+                                <div>
+                                    <a class="btn btn-danger" href="{{ path('app_delete', {id:article.id} ) }}"><i class="bi bi-trash"></i></a>
+                                    <a class="btn btn-warning" href="{{ path('app_edit', {id:article.id} ) }}"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ path('app_show', {'id': article.id}) }}" class="btn btn-primary">Voir</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="container position">
+            <h1 class="text-center mt-5">Bienvenue 😃</h1>
+            <h3 class="mt-2 text-center">Veuillez vous connecter ou créer un compte...</h3>
+        </div>
+    {% endif %}
 {% endblock %}
+

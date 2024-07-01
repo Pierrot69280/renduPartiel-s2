@@ -1,5 +1,5 @@
 
-{#{% if app.user %}#}
+{% if app.user %}
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top justify-content-center bg-black">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Partiel</a>
@@ -15,19 +15,18 @@
                         <a class="nav-link text-white" href="{{ path('app_create') }}">Créer</a>
                     </li>
                 </ul>
-{#                <a href="{{ path('app_create') }}" class="btn btn-violet mx-3"><strong>Twoot !</strong></a>#}
-{#                <a href="{{ path('app_logout') }}" class="btn btn-danger"><i class="bi-power" style="font-size: 1.2rem; font-weight:bold; color: white;"></i></a>#}
+                <a href="{{ path('app_logout') }}" class="btn btn-danger"><i class="bi-power" style="font-size: 1.2rem; font-weight:bold; color: white;"></i></a>
             </div>
         </div>
     </nav>
-{#{% else %}#}
-{#    <nav class="navbar navbar-expand-lg navbar-dark bg-orange">#}
-{#        <div class="container-fluid">#}
-{#            <a class="navbar-brand" href="/">Twooter</a>#}
-{#            <div class="ms-auto d-flex">#}
-{#                <a href="{{ path('app_register') }}" class="btn btn-vert text-white me-2">S'inscrire</a>#}
-{#                <a href="{{ path('app_login') }}" class="btn text-white">Se connecter</a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </nav>#}
-{#{% endif %}#}
+{% else %}
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top justify-content-center bg-black">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Partiel</a>
+            <div class="ms-auto d-flex">
+                <a href="{{ path('app_register') }}" class="btn btn-vert text-white me-2">S'inscrire</a>
+                <a href="{{ path('app_login') }}" class="btn text-white">Se connecter</a>
+            </div>
+        </div>
+    </nav>
+{% endif %}
