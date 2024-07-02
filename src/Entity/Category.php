@@ -18,12 +18,12 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'category')]
-    private Collection $articles;
+    #[ORM\OneToMany(targetEntity: Film::class, mappedBy: 'category')]
+    private Collection $films;
 
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
+        $this->films = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,29 +44,29 @@ class Category
     }
 
     /**
-     * @return Collection<int, Article>
+     * @return Collection<int, Film>
      */
     public function getArticles(): Collection
     {
-        return $this->articles;
+        return $this->films;
     }
 
-    public function addArticle(Article $article): static
+    public function addArticle(Film $film): static
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles->add($article);
-            $article->setCategory($this);
+        if (!$this->films->contains($film)) {
+            $this->films->add($film);
+            $film->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Article $article): static
+    public function removeArticle(Film $film): static
     {
-        if ($this->articles->removeElement($article)) {
+        if ($this->films->removeElement($film)) {
             // set the owning side to null (unless already changed)
-            if ($article->getCategory() === $this) {
-                $article->setCategory(null);
+            if ($film->getCategory() === $this) {
+                $film->setCategory(null);
             }
         }
 

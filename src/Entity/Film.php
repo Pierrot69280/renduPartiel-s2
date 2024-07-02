@@ -3,13 +3,13 @@
 namespace App\Entity;
 
 use AllowDynamicProperties;
-use App\Repository\ArticleRepository;
+use App\Repository\FilmRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[AllowDynamicProperties]
-#[ORM\Entity(repositoryClass: ArticleRepository::class)]
-class Article
+#[ORM\Entity(repositoryClass: FilmRepository::class)]
+class Film
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,8 +22,12 @@ class Article
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'films')]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'film')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
@@ -62,6 +66,18 @@ class Article
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

@@ -9,12 +9,12 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ path('app_articles') }}">Articles</a>
+                        <a class="nav-link text-white" href="{{ path('app_films') }}">Films</a>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ path('app_create') }}">Créer</a>
                     </li>
-                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ path('app_category') }}">Catégorie</a>
                     </li>

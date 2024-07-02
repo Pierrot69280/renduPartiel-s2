@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -33,6 +35,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Film>
+     */
+    #[ORM\OneToMany(targetEntity: Film::class, mappedBy: 'author', orphanRemoval: true)]
+    private Collection $film;
+
+    /**
+     * @var Collection<int, Film>
+     */
+
+    public function __construct()
+    {
+        $this->film = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -108,4 +125,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getFilm(): Collection
+    {
+        return $this->film;
+    }
+
+    public function addFilm(Film $film): static
+    {
+        if (!$this->film->contains($film)) {
+            $this->film->add($film);
+            $film->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilm(Film $film): static
+    {
+        if ($this->film->removeElement($film)) {
+            // set the owning side to null (unless already changed)
+            if ($film->getAuthor() === $this) {
+                $film->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 }

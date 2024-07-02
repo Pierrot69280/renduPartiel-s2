@@ -17,7 +17,7 @@ class CategoryController extends AbstractController
     #[Route('/admin/category/new', name: 'app_category')]
     public function index(Request $request, EntityManagerInterface $manager, CategoryRepository $categoryRepository): Response
     {
-        if(!$this->getUser()){return $this->redirectToRoute("app_articles");}
+        if(!$this->getUser()){return $this->redirectToRoute("app_films");}
 
 
         $category = new Category();
