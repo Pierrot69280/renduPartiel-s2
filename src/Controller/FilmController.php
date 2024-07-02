@@ -49,8 +49,18 @@ class FilmController extends AbstractController
             $manager->persist($film);
             $manager->flush();
 
+            // Récupérer la salle associée au film
+            $salle = $film->getSalle(); // Assurez-vous que getSalle() renvoie l'entité Salle associée
 
-            for ($i = 1; $i <= 45; $i++) {
+            // Déterminer le nombre de places en fonction de l'ID de la salle
+            if ($salle->getId() == 1) {
+                $numberOfPlaces = 85;
+            } else {
+                $numberOfPlaces = 45;
+            }
+
+            // Créer les places pour le film en fonction du nombre de places déterminé
+            for ($i = 1; $i <= $numberOfPlaces; $i++) {
                 $place = new Place();
                 $place->setNumber($i);
                 $place->setFilm($film);
@@ -65,6 +75,7 @@ class FilmController extends AbstractController
             'formulaire' => $form->createView()
         ]);
     }
+
 
     #[Route('/delete/{id}', name: 'app_delete')]
     #[Route('/admin/delete/{id}', name: 'app_delete')]
@@ -114,7 +125,7 @@ class FilmController extends AbstractController
                     $manager->flush();
                 }
 
-                return $this->redirectToRoute('app_films');
+                return $this->redirectToRoute('app_reserve', ['id' => $film->getId()]);
             }
         }
 

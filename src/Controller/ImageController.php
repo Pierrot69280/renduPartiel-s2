@@ -31,6 +31,6 @@ class ImageController extends AbstractController
             $manager->flush();
             return $this->redirectToRoute("app_home");
         }
-        return $this->render("image/index.html.twig", ['formImage' => $formImage->createView(), "images"=>$imageRepository->findAll()]);
+        return $this->render("image/selection.html.twig", ['formImage' => $formImage->createView(), "images"=>$imageRepository->findAll()]);
     }
 }

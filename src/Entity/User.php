@@ -41,6 +41,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: Film::class, mappedBy: 'author', orphanRemoval: true)]
     private Collection $film;
+    #[ORM\OneToMany(targetEntity: PaymentMethod::class, mappedBy: 'owner')]
+    private Collection $paymentMethods;
 
     /**
      * @var Collection<int, Film>
@@ -49,6 +51,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->film = new ArrayCollection();
+        $this->paymentMethods = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -155,7 +159,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * @return Collection<int, PaymentMethod>
+     */
+    public function getPaymentMethods(): Collection
+    {
+        return $this->paymentMethods;
+    }
 
+    public function addPaymentMethod(PaymentMethod $paymentMethod): static
+    {
+        if (!$this->paymentMethods->contains($paymentMethod)) {
+            $this->paymentMethods->add($paymentMethod);
+            $paymentMethod->setOwner($this);
+        }
 
+        return $this;
+    }
 
+    public function removePaymentMethod(PaymentMethod $paymentMethod): static
+    {
+        if ($this->paymentMethods->removeElement($paymentMethod)) {
+            // set the owning side to null (unless already changed)
+            if ($paymentMethod->getOwner() === $this) {
+                $paymentMethod->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
 }

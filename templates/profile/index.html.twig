@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos méthodes de paiement{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card position">
+                        <div class="card-header">
+                            <h3 class="text-center">Vos méthodes de paiement :</h3>
+                        </div>
+                        <div class="card-body">
+                            {% for paymentMethod in app.user.paymentMethods %}
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>{{ paymentMethod.cardNumber }}</div>
+                                    <div>
+                                        <a href="{{ path('app_edit_paymentmethod', {id: paymentMethod.id}) }}" class="btn btn-warning btn-sm"><i class="bi bi-pen"></i></a>
+                                        <a href="{{ path('app_delete_paymentmethod', {id: paymentMethod.id}) }}" class="btn btn-danger btn-sm">X</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <a href="{{ path('app_create_paymentmethod') }}" class="btn btn-warning btn-block">Ajouter une méthode de paiement</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -19,6 +19,9 @@
                         <a class="nav-link text-white" href="{{ path('app_salle') }}">Salle</a>
                     </li>
                     {% endif %}
+
+                    <a href="{{ path('app_profile') }}" class="nav-link text-warning">{{ app.user.username }}</a>
+
                 </ul>
                 <a href="{{ path('app_logout') }}" class="btn btn-danger"><i class="bi-power" style="font-size: 1.2rem; font-weight:bold; color: white;"></i></a>
             </div>

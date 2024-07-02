@@ -1,9 +1,6 @@
-{# templates/film/reserve.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Réservation - {{ film.name }}{% endblock %}
-
 
 {% block body %}
     <div class="position">
@@ -13,9 +10,26 @@
             <form method="post">
                 <div class="container">
                     <div class="row">
+                        <div class="col-12">
+                            <h2 class="text-white">Places disponibles :</h2>
+                        </div>
                         {% for place in places %}
-                            <div class="col-1 mb-3">
-                                {% if place.isReserved %}
+                            {% if not place.isReserved %}
+                                <div class="col-1 mb-3 mt-3">
+                                    <button type="submit" name="place_id" value="{{ place.id }}" class="btn btn-success place-button">
+                                        {{ place.number }} (Libre)
+                                    </button>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="row mt-4 mb-5">
+                        <div class="col-12">
+                            <h2 class="text-white">Places réservées :</h2>
+                        </div>
+                        {% for place in places %}
+                            {% if place.isReserved %}
+                                <div class="col-1 mb-3 mt-3">
                                     {% if place.isReservedByUser(app.user) %}
                                         <button type="submit" name="place_id" value="{{ place.id }}" class="btn btn-danger place-button">
                                             {{ place.number }} (Réservé par vous)
@@ -25,12 +39,8 @@
                                             {{ place.number }} (Déjà réservé)
                                         </button>
                                     {% endif %}
-                                {% else %}
-                                    <button type="submit" name="place_id" value="{{ place.id }}" class="btn btn-success place-button">
-                                        {{ place.number }} (Libre)
-                                    </button>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
