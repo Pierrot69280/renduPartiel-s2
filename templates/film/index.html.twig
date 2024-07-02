@@ -10,12 +10,19 @@
                     <div class="col-3 mb-3">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
+                                <div class="align-items-center">
+                                    {% include 'image/image_or_not_image.html.twig' %}
+                                </div>
                                 <h5 class="card-title">{{ film.name }}</h5>
                                 <p class="card-text">{{ film.description }}</p>
+                                <p class="card-text">{{ film.price }} €</p>
+                                {% if film.salle %}
+                                    <p class="card-text">Salle numéro {{ film.salle.name }}</p>
+                                {% endif %}
                                 <div>
                                     {% if app.user == film.author %}
-                                    <a class="btn btn-danger" href="{{ path('app_delete', {id:film.id} ) }}"><i class="bi bi-trash"></i></a>
-                                    <a class="btn btn-warning" href="{{ path('app_edit', {id:film.id} ) }}"><i class="bi bi-pencil-square"></i></a>
+                                        <a class="btn btn-danger" href="{{ path('app_delete', {id:film.id} ) }}"><i class="bi bi-trash"></i></a>
+                                        <a class="btn btn-warning" href="{{ path('app_edit', {id:film.id} ) }}"><i class="bi bi-pencil-square"></i></a>
                                     {% endif %}
                                     <a href="{{ path('app_show', {'id': film.id}) }}" class="btn btn-primary">Voir</a>
                                     <a href="{{ path('app_reserve', {'id': film.id}) }}" class="btn btn-secondary">Réserver</a>
@@ -33,4 +40,3 @@
         </div>
     {% endif %}
 {% endblock %}
-

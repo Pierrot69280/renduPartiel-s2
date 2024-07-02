@@ -3,8 +3,6 @@
 {% form_theme formulaire 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-
-
     <div class="container position">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -24,10 +22,19 @@
                         </div>
 
                         <div class="mb-3">
+                            {{ form_label(formulaire.price, 'Prix', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(formulaire.price, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <div class="mb-3">
                             {{ form_label(formulaire.salle, 'Salle', {'label_attr': {'class': 'form-label'}}) }}
                             {{ form_widget(formulaire.salle, {'attr': {'class': 'form-control'}}) }}
                         </div>
 
+                        <div class="">
+                            {{ form_label(formulaire.image, 'Image', {'label_attr': {'class': 'form-label required'}}) }}
+                            {{ form_widget(formulaire.image, {'attr': {'class': 'form-control', 'placeholder': 'Your text goes here, also you can optionally upload an image'}}) }}
+                        </div>
 
                         <button type="submit" class="btn btn-warning mt-3">Modifier <i class="bi bi-pencil-square"></i></button>
                         {{ form_end(formulaire) }}
@@ -36,5 +43,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

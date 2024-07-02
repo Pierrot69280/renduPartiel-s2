@@ -8,6 +8,9 @@
             <div class="col-6 position">
                 <div class="card">
                     <div class="card-body">
+                        <div class="align-items-center">
+                            {% include 'image/image_or_not_image.html.twig' %}
+                        </div>
                         <h5 class="card-title">{{ film.name }}</h5>
                         <p class="card-text">{{ film.description }}</p>
 
@@ -16,6 +19,7 @@
                             <a class="btn btn-danger" href="{{ path('app_delete', {id:film.id} ) }}"><i class="bi bi-trash"></i> Supprimer</a>
                             <a class="btn btn-warning" href="{{ path('app_edit', {id:film.id} ) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
                             {% endif %}
+
 
                             <a href="{{ path('app_films')}}" class="btn btn-secondary">Retour</a>
                         </div>

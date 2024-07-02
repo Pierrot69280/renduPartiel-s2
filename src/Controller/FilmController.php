@@ -49,17 +49,14 @@ class FilmController extends AbstractController
             $manager->persist($film);
             $manager->flush();
 
-            // Récupérer la salle associée au film
-            $salle = $film->getSalle(); // Assurez-vous que getSalle() renvoie l'entité Salle associée
+            $salle = $film->getSalle();
 
-            // Déterminer le nombre de places en fonction de l'ID de la salle
             if ($salle->getId() == 1) {
                 $numberOfPlaces = 85;
             } else {
                 $numberOfPlaces = 45;
             }
 
-            // Créer les places pour le film en fonction du nombre de places déterminé
             for ($i = 1; $i <= $numberOfPlaces; $i++) {
                 $place = new Place();
                 $place->setNumber($i);
@@ -114,7 +111,6 @@ class FilmController extends AbstractController
             $place = $placeRepository->find($placeId);
 
             if ($place) {
-                // Vérifier si la place est déjà réservée par l'utilisateur connecté
                 if ($place->isReservedByUser($this->getUser())) {
                     $place->setIsReserved(false);
                     $place->setUser(null);

@@ -1,0 +1,5 @@
+{% if film.image %}
+    <img width="150px" src="{{ vich_uploader_asset(film.image) }}" alt="">
+{% else %}
+    <img width="150px" src="{{ asset('images/no_image.jpg') }}" alt="">
+{% endif %}

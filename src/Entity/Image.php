@@ -16,9 +16,7 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    // ... other fields
-
-    // NOTE: This is not a mapped field of entity metadata, just a simple property.
+    // This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'mes_images', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
@@ -31,6 +29,14 @@ class Image
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\OneToOne(inversedBy: 'image')]
+    private ?Film $film = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -40,11 +46,6 @@ class Image
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
@@ -79,5 +80,27 @@ class Image
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    public function getFilm(): ?Film
+    {
+        return $this->film;
+    }
+
+    public function setFilm(?Film $film): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($film === null && $this->film !== null) {
+            $this->film->setImage(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($film !== null && $film->getImage() !== $this) {
+            $film->setImage($this);
+        }
+
+        $this->film = $film;
+
+        return $this;
     }
 }
