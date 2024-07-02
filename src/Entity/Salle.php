@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use App\Repository\SalleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category
+#[ORM\Entity(repositoryClass: SalleRepository::class)]
+class Salle
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +18,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(targetEntity: Film::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Film::class, mappedBy: 'salle')]
     private Collection $films;
 
     public function __construct()
@@ -39,34 +39,33 @@ class Category
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
     /**
      * @return Collection<int, Film>
      */
-    public function getArticles(): Collection
+    public function getFilms(): Collection
     {
         return $this->films;
     }
 
-    public function addArticle(Film $film): static
+    public function addFilm(Film $film): static
     {
         if (!$this->films->contains($film)) {
             $this->films->add($film);
-            $film->setCategory($this);
+            $film->setSalle($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Film $film): static
+    public function removeFilm(Film $film): static
     {
         if ($this->films->removeElement($film)) {
             // set the owning side to null (unless already changed)
-            if ($film->getCategory() === $this) {
-                $film->setCategory(null);
+            if ($film->getSalle() === $this) {
+                $film->setSalle(null);
             }
         }
 

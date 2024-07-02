@@ -2,12 +2,10 @@
 
 namespace App\Entity;
 
-use AllowDynamicProperties;
 use App\Repository\FilmRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[AllowDynamicProperties]
 #[ORM\Entity(repositoryClass: FilmRepository::class)]
 class Film
 {
@@ -22,12 +20,15 @@ class Film
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'films')]
-    private ?Category $category = null;
+    #[ORM\ManyToOne(targetEntity: Salle::class, inversedBy: 'films')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Salle $salle = null;  // Corrected property name from $film to $salle
 
-    #[ORM\ManyToOne(inversedBy: 'author')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'films')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
+
+    // Getters and Setters
 
     public function getId(): ?int
     {
@@ -42,7 +43,6 @@ class Film
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -54,19 +54,17 @@ class Film
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getSalle(): ?Salle  // Corrected method name from getFilm to getSalle
     {
-        return $this->category;
+        return $this->salle;
     }
 
-    public function setCategory(?Category $category): static
+    public function setSalle(?Salle $salle): static  // Corrected method name from setFilm to setSalle
     {
-        $this->category = $category;
-
+        $this->salle = $salle;
         return $this;
     }
 
@@ -78,7 +76,6 @@ class Film
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
-
         return $this;
     }
 }

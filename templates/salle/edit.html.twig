@@ -5,12 +5,12 @@
 
 {% block body %}
     <div class="container position">
-        <h3 class="mb-4">Editer une catégorie</h3>
+        <h3 class="mb-4">Editer une salle</h3>
 
         {{ form_start(form) }}
 
         <div class="mb-3">
-            {{ form_label(form.name, 'Contenu de la catégorie') }}
+            {{ form_label(form.name, 'Numéro de la salle') }}
             {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
         </div>
 

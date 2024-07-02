@@ -49,7 +49,7 @@ class FilmController extends AbstractController
             $manager->persist($film);
             $manager->flush();
 
-            // Créer 45 places pour le film
+
             for ($i = 1; $i <= 45; $i++) {
                 $place = new Place();
                 $place->setNumber($i);

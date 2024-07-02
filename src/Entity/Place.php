@@ -19,11 +19,11 @@ class Place
     #[ORM\Column]
     private bool $isReserved = false;
 
-    #[ORM\ManyToOne(inversedBy: 'places')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Film::class, inversedBy: 'places')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Film $film = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 

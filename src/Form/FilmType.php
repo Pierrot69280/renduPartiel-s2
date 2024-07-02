@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Film;
-use App\Entity\Category;
+use App\Entity\Salle;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +16,8 @@ class FilmType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('category', EntityType::class, [
-                'class'=>Category::class,
+            ->add('salle', EntityType::class, [
+                'class'=>Salle::class,
                 'choice_label'=>'name'
             ]);
     }

@@ -23,8 +23,13 @@
                             {{ form_widget(formulaire.description, {'attr': {'class': 'form-control'}}) }}
                         </div>
 
+                        <div class="mb-3">
+                            {{ form_label(formulaire.salle, 'Salle', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(formulaire.salle, {'attr': {'class': 'form-control'}}) }}
+                        </div>
 
-                        <button type="submit" class="btn btn-warning ">Modifier <i class="bi bi-pencil-square"></i></button>
+
+                        <button type="submit" class="btn btn-warning mt-3">Modifier <i class="bi bi-pencil-square"></i></button>
                         {{ form_end(formulaire) }}
                     </div>
                 </div>
