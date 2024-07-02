@@ -25,7 +25,7 @@ class Film
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'films')]
     private ?Category $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'film')]
+    #[ORM\ManyToOne(inversedBy: 'author')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 

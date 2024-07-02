@@ -1,0 +1,40 @@
+{# templates/film/reserve.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation - {{ film.name }}{% endblock %}
+
+
+{% block body %}
+    <div class="position">
+        <h1 class="text-center">Réserver une place pour <span class="text-white">{{ film.name }}</span></h1>
+
+        <div class="mt-5">
+            <form method="post">
+                <div class="container">
+                    <div class="row">
+                        {% for place in places %}
+                            <div class="col-1 mb-3">
+                                {% if place.isReserved %}
+                                    {% if place.isReservedByUser(app.user) %}
+                                        <button type="submit" name="place_id" value="{{ place.id }}" class="btn btn-danger place-button">
+                                            {{ place.number }} (Réservé par vous)
+                                        </button>
+                                    {% else %}
+                                        <button type="submit" name="place_id" value="{{ place.id }}" class="btn btn-danger place-button" disabled>
+                                            {{ place.number }} (Déjà réservé)
+                                        </button>
+                                    {% endif %}
+                                {% else %}
+                                    <button type="submit" name="place_id" value="{{ place.id }}" class="btn btn-success place-button">
+                                        {{ place.number }} (Libre)
+                                    </button>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -6,3 +6,8 @@ body {
 .position {
     margin-top: 150px;
 }
+
+.place-button {
+    width: 100px;
+    height: 100px;
+}
